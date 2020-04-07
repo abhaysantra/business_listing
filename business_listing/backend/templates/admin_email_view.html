@@ -1,0 +1,88 @@
+
+{% include 'common/admin_header.html' %}
+{% include 'common/admin_leftmenu.html' %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h3>
+        Email
+        
+      </h3>
+      
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        
+        <!--/.col (left) -->
+        <!-- right column -->
+        <div class="col-md-12">
+          <!-- Horizontal Form -->
+          <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">Email Setup
+              <span style="padding-right: 40px;"></span>
+               
+              </h3>
+                <div id="validation" style="color:red;"></div>
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        <a class="close" href="javascript:void(0)" data-dismiss="alert">×</a>
+                        {{ message }}
+                    </div>
+               {% endfor %}
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form id="email_update_form" class="form-horizontal" action="{% url 'admin_email_update' %}" method="post">{% csrf_token %}
+              <div class="box-body">
+              <div class="form-group">
+                  <label for="inputName" class="col-sm-2 control-label">Receive Email</label>
+
+                  <div class="col-sm-10">
+                    <input type="text" name="receive_email" id="receive_email"class="form-control" placeholder="Receive Email" value="{{ email_data.0.receive_email }}">
+                     <span id="error_name" style="color:red"></span>
+                  </div>
+                 
+                </div>
+            
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">From Email</label>
+
+                  <div class="col-sm-10">
+                    <input type="email" name="from_email" class="form-control" id="from_email" placeholder="From Email"  value="{{ email_data.0.from_email }}">
+                    <span id="error_email" style="color:red"></span>
+                  </div>
+                  
+                </div>
+                
+                
+              </div>
+              
+              <div id="error"></div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <a href="{% url 'admin_index' %}" class="btn btn-danger">Cancel</a>
+                <button type="submit" class="btn btn-info pull-right">Update</button>
+              </div>
+              <!-- /.box-footer -->
+            </form>
+          </div>
+          <!-- /.box -->
+          <!-- general form elements disabled -->
+          
+          <!-- /.box -->
+        </div>
+        <!--/.col (right) -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  </div>
+
+
+{% include 'common/admin_footer.html' %}       

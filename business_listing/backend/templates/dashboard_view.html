@@ -1,0 +1,140 @@
+
+{% include 'common/admin_header.html' %}
+{% include 'common/admin_leftmenu.html' %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Dashboard
+        <small>Control Panel</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <!-- Small boxes (Stat box) -->
+      <div class="row">
+
+
+         <div class="col-lg-3 col-xs-6">
+          <div class="small-box bg-teal">
+            <div class="inner">
+              <h3>
+                {{ all_users.count }}
+              </h3>
+              <p>Total Users</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-user"></i>
+            </div>
+
+          </div>
+        </div>
+
+
+
+        <!-- <div class="col-lg-3 col-xs-6">
+          <div class="small-box bg-olive">
+            <div class="inner">
+              <h3>
+                {{ all_product.count }}
+              </h3>
+              <p>Total Products</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-product-hunt"></i>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-xs-6">
+          <div class="small-box bg-blue">
+            <div class="inner">
+              <h3>
+                {{ all_category.count }}
+              </h3>
+              <p>Total Category</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-cubes"></i>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-xs-6">
+          <div class="small-box bg-orange">
+            <div class="inner">
+              <h3>
+                {{ all_brands.count }}
+              </h3>
+              <p>Total Brands</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-cube"></i>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-xs-6">
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h3>
+                {{ all_orders.count }}
+              </h3>
+              <p>Total Orders</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-shopping-cart"></i>
+            </div>
+
+          </div>
+        </div> -->
+
+       
+
+        <!-- <div class="col-lg-3 col-xs-6">
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3>
+                {{ all_enquiry.count }}
+              </h3>
+              <p>Total Enquiries</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-envelope"></i>
+            </div>
+
+          </div>
+        </div> -->
+
+
+
+	
+         
+        <!-- ./col -->
+      </div>
+                  
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+          </div>
+          <!-- /.box -->
+
+        </section>
+        <!-- right col -->
+      </div>
+      <!-- /.row (main row) -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+
+  {% include 'common/admin_footer.html' %}

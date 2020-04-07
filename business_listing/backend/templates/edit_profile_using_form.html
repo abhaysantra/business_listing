@@ -1,0 +1,65 @@
+
+{% include 'common/admin_header.html' %}
+{% include 'common/admin_leftmenu.html' %}
+{% load crispy_forms_tags %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h3>
+        ADMIN/PROFILE EDIT
+        
+      </h3>
+      
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        
+        <!--/.col (left) -->
+        <!-- right column -->
+        <div class="col-md-12">
+          <!-- Horizontal Form -->
+          <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">PROFILE EDIT
+              <span style="padding-right: 40px;"></span>
+               
+              </h3>
+                <div id="validation" style="color:red;"></div>
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        <a class="close" href="#" data-dismiss="alert">×</a>
+                        {{ message }}
+                    </div>
+    {% endfor %}
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form id="profileedit_form_validation" class="form-horizontal" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+              {{form|crispy}}
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <a href="{% url 'admin_index' %}" class="btn btn-danger">Cancel</a>
+                <button type="submit" class="btn btn-info pull-right">Submit</button>
+              </div>
+              <!-- /.box-footer -->
+            </form>
+          </div>
+          <!-- /.box -->
+          <!-- general form elements disabled -->
+          
+          <!-- /.box -->
+        </div>
+        <!--/.col (right) -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  </div>
+
+
+{% include 'common/admin_footer.html' %}       

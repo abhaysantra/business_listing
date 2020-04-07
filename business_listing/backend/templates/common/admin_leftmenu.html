@@ -1,0 +1,77 @@
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+        
+        </div>
+        
+      </div>
+      
+      <ul class="sidebar-menu">
+        <li class="header">ADMINISTRATION</li>
+        <li class="active treeview">
+          <a href="{% url 'admin_index' %}">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+            
+          </a>
+         
+        </li>
+
+      
+        <li class="treeview {% if slider_active == 'active' or about_active == 'active' or gallery_active == 'active' or contact_active == 'active' or valuable_customer_active == 'active' or video_active == 'active' or faq_active == 'active' or banner_active == 'active' or policy_active == 'active' or pincode_service_active == 'active' %}active{% endif %}">
+          <a href="#">
+            <i class="fa fa-cogs"></i>
+            <span>Setting Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+
+            <li class="{% if slider_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage Slider</a></li>
+
+            <li class="{% if banner_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage Banner</a></li>
+
+
+             <li class="{% if gallery_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage Gallery</a></li> 
+          
+             <li class="{% if valuable_customer_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage Valuable Customers</a></li>
+
+             <li class="{% if video_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage Videos</a></li>
+
+             <li class="{% if pincode_service_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage Pincode</a></li>
+
+             <li class="{% if about_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage About Us</a></li> 
+
+             <li class="{% if contact_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage Contact Us</a></li>
+
+             <li class="{% if faq_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage FAQ</a></li>
+
+             <li class="{% if policy_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage Policy</a></li>
+
+          </ul>
+      </li>
+
+
+
+      <!--  -->
+
+
+
+
+
+
+
+
+      
+        
+		  
+		  </ul> 
+
+        <li class="treeview">
+          <a href="#">
+    </section>
+    <!-- /.sidebar -->
+  </aside>

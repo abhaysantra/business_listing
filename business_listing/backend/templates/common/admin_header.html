@@ -1,0 +1,110 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Admin Panel</title>
+  <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}"/>  
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Font Awesome -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"> 
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{% static 'assets/plugins/datatables/dataTables.bootstrap.css' %}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'assets/dist/css/AdminLTE.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/dist/css/skins/skin-blue.min.css' %}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'assets/plugins/datepicker/datepicker3.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/plugins/select2/select2.min.css' %}">
+  <link rel="stylesheet" href="{% static 'custom_css/form_validation.css' %}">
+    <script src="{% static 'assets/plugins/datepicker/bootstrap-datepicker.js' %}"></script>
+
+     <script src="{% static 'assets/parsley.min.js' %}"></script> 
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>DEB</b></span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b><img style="width: 150px;" src="{% static 'image/logodemo.png'%}"></b></span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Messages: style can be found in dropdown.less-->
+          
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              
+              <span class="hidden-xs">{{ request.session.admin_session_name }}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <p>
+                 {{ request.session.admin_session_name }}
+                  <small></small>
+                </p>
+              </li>
+              <!-- Menu Body -->
+              <li class="user-body">
+                <div class="row">
+                  <div class="col-xs-6 text-center">
+                    <a href="{% url 'admin_password_view' %}">Change Password</a>
+                  </div>
+                  <div class="col-xs-6 text-center">
+                    <a href="{% url 'admin_email_view' %}">Email Setting</a>
+                  </div>
+                  <!--<div class="col-xs-4 text-center">
+                    <a href="#">Friends</a>
+                  </div>-->
+                </div>
+                <!-- /.row -->
+              </li>
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="{% url 'updateprofile' request.session.admin_session_id %}" class="btn btn-default btn-flat">Profile</a>
+                </div>
+                <div class="pull-right">
+                  <a href="{% url 'logout' %}" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <!-- Control Sidebar Toggle Button -->
+          <!--<li>
+            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+          </li>-->
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <style type="text/css">
+    .red_border {
+          outline: none;
+          border-color: #ff3333 !important;
+          box-shadow: 0 0 10px #ff3333 !important;
+          border: solid 1px #ff3333 !important;
+    }
+  </style>
