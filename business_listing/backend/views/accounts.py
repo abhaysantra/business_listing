@@ -114,6 +114,7 @@ def login_action(request):
     #test authenticate
     user = authenticate(request, username=login_email,password=login_password)
     print('authenticate :',user)
+    print(user.is_staff, user.is_superuser)
     if user is not None:
         if user.is_active:
             login(request, user)
