@@ -15,12 +15,13 @@ from .models import User, Book, MyUser #Order
 class CreateUserForm(UserCreationForm):
 	class Meta:
 		model = MyUser
-		fields = ['username', 'email', 'password1', 'password2','user_type_id']
+		# fields = ['username', 'email', 'password1', 'password2','user_type_id']
+		fields = ['username', 'email', 'phone_number','password1', 'password2']
 
 class UpdateUserForm(ModelForm):
 	class Meta:
 		model = MyUser
-		fields = ['first_name', 'last_name','phone_number','address','picture']
+		fields = ['first_name', 'last_name','phone_number','picture']
 		# exclude = ('password1','password2','user_type_id')
 
 # class CreateUserForm(ModelForm):

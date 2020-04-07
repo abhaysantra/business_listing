@@ -26,7 +26,8 @@ SECRET_KEY = '0e#ods@i4foqibaz^o@#cv2+7ljx!v$b&2!vd^l(qolm)mg8j-'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-AUTH_USER_MODEL = 'backend.MyUser'
+AUTH_USER_MODEL = 'backend.MyUser'  # app_name.model_name
+LOGIN_URL = '/backadmin/login/'
 
 
 # Application definition

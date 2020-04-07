@@ -3,6 +3,8 @@ from django.contrib import messages
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
+
 
 
 # Create your views here.
@@ -21,18 +23,23 @@ def registerPage(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            form.save()
-            user = form.cleaned_data.get('username')
-            messages.success(request, 'Account was created for ' + user)
-
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            #to set user_type id 1=> superuser 2=> vendor 3=> customer
+            group = Group.objects.get(name='vendor')
+            user.groups.add(group)
+            user.user_type_id = 2
+            user.save()
+            messages.success(request, 'Account was created with : ' + username)
             return redirect('login')
         
-
     context = {'form':form}
     return render(request, 'register.html', context)
 
 # @unauthenticated_user
-@login_required(login_url='login')
+# @login_required(login_url='login')
+# @admin_only
+@login_required()
 def updateProfile(request, pk):
 
     user = MyUser.objects.get(id=pk)
@@ -50,6 +57,7 @@ def updateProfile(request, pk):
 
 #-------- upload book with FIle and Image field -------------#
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['vendor'])
 def upload_book(request):
     book_form = BookForm()
 
@@ -64,12 +72,13 @@ def upload_book(request):
 
     return render(request,'book/upload_book.html',{'form':book_form}) 
 
-@login_required(login_url='login')
+@login_required()
 def book_list(request):
     books= Book.objects.all()
     return render(request,'book/book_list.html',{'books':books})   
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def update_book(request,id):
     book = Book.objects.get(id=id)
     book_form = BookForm(instance=book)
@@ -148,6 +157,8 @@ def index(request):
         return render(request, 'dashboard_view.html', context)
 
 # @unauthenticated_user
+# @allowed_users(['admin'])
+@admin_only
 def admin_profile(request):
     if 'admin_session_id' not in request.session:
         return redirect(loginUser)
@@ -157,6 +168,7 @@ def admin_profile(request):
    
     return render(request, 'admin_profile_edit.html', {'profile_data':profile_data})
 
+@admin_only
 def admin_profile_edit(request):
     full_name = request.POST["full_name"]
     email = request.POST["email"]

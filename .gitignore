@@ -1,2 +1,4 @@
 env/
-business_listing/backend/views/__pycache__/*
+business_listing/backend/views/__pycache__/
+business_listing/backend/__pycache__/
+business_listing/

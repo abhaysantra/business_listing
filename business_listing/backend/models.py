@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class MyUser(AbstractUser):
-    user_type_id = models.IntegerField()
+    user_type_id = models.IntegerField(null=True)
     phone_number = models.CharField(max_length=255, null=True)
     picture = models.ImageField(upload_to='profile/', null=True, blank=True)
     address = models.TextField(null=True)
@@ -16,11 +16,7 @@ class User(models.Model):
     login_password = models.CharField(max_length=255)
     login_email = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=255, null=True)
-    # admin_status = [
-    #     ('active', 'active'),
-    #     ('inactive', 'inactive'),
-    # ]
-    # status = models.CharField(max_length=8, choices=admin_status, default='active')
+
 
     gst_no = models.CharField(max_length=256, null=True)
     status = models.CharField(max_length=8, default='active')
@@ -47,6 +43,11 @@ class adminEmail(models.Model):
 
     def __str__(self):
         return self.from_email
+
+class VendorInfo(models.Model):
+    myuser = models.ForeignKey(MyUser, on_delete=models.CASCADE, null=True)
+    info = models.TextField(null=True)
+    service = models.TextField(null=True)
 
 class Book(models.Model):
     title = models.CharField(max_length=255)
