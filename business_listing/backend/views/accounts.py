@@ -48,7 +48,7 @@ def updateProfile(request, pk):
     return render(request, 'edit_profile_using_form.html', context)
 
 
-#-------- upload book with FIle and Image field --------------#
+#-------- upload book with FIle and Image field -------------#
 @login_required(login_url='login')
 def upload_book(request):
     book_form = BookForm()
