@@ -1,0 +1,301 @@
+{% load static %}
+{% include 'common/admin_header.html' %}
+{% include 'common/admin_leftmenu.html' %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<div class="wrapper">
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Update Parlour
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="{% url 'admin_index' %}"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+                <li>Update Parlour</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <!-- <h3 class="box-title">Add Home Slider</h3> -->
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form name="main" id="brand_edit_form" action="" role="form" method="post" enctype="multipart/form-data">{% csrf_token %}
+                            <div class="box-body">
+                                <div class="form-group" style="margin-top: 10px">
+                                    <label for="coupon_code" class="col-sm-2 control-label text-center">Vendor: <span style="color: rgb(255, 0, 0); padding-left: 2px;">*</span></label>
+                                    <div class="col-sm-7">
+                                            <select class="form-control" name="vendor" id="vendor" style="margin-bottom:12px" >
+                                                <option value="">Select Vendor </option>
+                                                {% for vendor in vendor_list %}
+                            <option value="{{ vendor.id }}" {% if vendor.id == parlour_obj.vendor_id %}selected{% endif %} >{{ vendor.first_name }}</option>
+                                                {% endfor %}                                
+                                            </select>
+
+                                                
+                                    </div>
+                                </div>
+                                
+                                
+                            <div class="clearfix"></div>
+
+                            <div class="form-group" style="margin-top: 10px">
+                                    <label for="coupon_code" class="col-sm-2 control-label text-center">Parlour Name: <span style="color: rgb(255, 0, 0); padding-left: 2px;">*</span></label>
+                                    <div class="col-sm-7">
+                                        {{ parlourform.name }}
+                                        <!-- {{ parlourform.instance.name }} to make it readonly-->
+                                    </div>
+                            </div>
+                            <div class="clearfix"></div> 
+                            <div class="form-group" style="margin-top: 10px">
+                                    <label for="coupon_code" class="col-sm-2 control-label text-center">Phone Number: <span style="color: rgb(255, 0, 0); padding-left: 2px;">*</span></label>
+                                    <div class="col-sm-7">
+                                        {{ parlourform.phone_number }}
+                                    </div>
+                            </div>
+
+                            <div class="clearfix"></div> 
+                            <div class="form-group" style="margin-top: 10px">
+                                <label for="coupon_code" class="col-sm-2 control-label text-center">Address: <span style="color: rgb(255, 0, 0); padding-left: 2px;">*</span></label>
+                                <div class="col-sm-7">
+                                    {{ parlourform.address }}
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div> 
+                            <div class="form-group" style="margin-top: 10px">
+                                <label for="coupon_code" class="col-sm-2 control-label text-center">Landmark: <span style="color: rgb(255, 0, 0); padding-left: 2px;">*</span></label>
+                                <div class="col-sm-7">
+                                    {{ parlourform.landmark }}
+                                </div>
+                            </div>
+                            <div class="clearfix"></div> 
+
+                            <div class="form-group" style="margin-top: 10px">
+                                <label for="coupon_code" class="col-sm-2 control-label text-center">County: <span style="color: rgb(255, 0, 0); padding-left: 2px;">*</span></label>
+                                <div class="col-sm-7">
+                                            <select class="form-control" name="country" id="country" style="margin-bottom:12px" onchange="get_state_based_on_country(this.value)">
+                                                <option value="">Select Country </option>
+                                                {% for country in all_countries %}
+                                                <option value="{{ country.country_id }}" {% if country.country_id == parlour_obj.country %}selected{% endif %} >{{ country.name }}</option>
+                                                {% endfor %}                                  
+                                            </select>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="form-group" style="margin-top: 10px">
+                                    <label for="coupon_code" class="col-sm-2 control-label text-center">State: <span style="color: rgb(255, 0, 0); padding-left: 2px;">*</span></label>
+                                    <div class="col-sm-7">
+                                                <select class="form-control" name="state" id="state" style="margin-bottom:12px" onchange="get_city_based_on_state(this.value)">
+                                                    <option value="">Select State </option>
+                                                    {% for state_row in all_states %}
+                                                    <option value="{{ state_row.state_id }}" {% if state_row.state_id == parlour_obj.state %}selected{% endif %} >{{ state_row.name }}</option>
+                                                    {% endfor %}                                  
+                                                </select>
+                                    </div>
+                                </div>
+                             <div class="clearfix"></div>
+
+                             <div class="form-group" style="margin-top: 10px">
+                                    <label for="coupon_code" class="col-sm-2 control-label text-center">City: <span style="color: rgb(255, 0, 0); padding-left: 2px;">*</span></label>
+                                    <div class="col-sm-7">
+                                                <select class="form-control" name="city" id="city" style="margin-bottom:12px" >
+                                                    <option value="">Select City </option>
+                                                    {% for city_row in all_cities %}
+                      <option value="{{ city_row.city_id }}" {% if city_row.city_id == parlour_obj.city %}selected{% endif %} >{{ city_row.name }}</option>
+                    {% endfor %}                                 
+                                                </select>
+                                    </div>
+                                </div>
+
+                            <div class="clearfix"></div> 
+                            <div class="form-group" style="margin-top: 10px">
+                                    <label for="coupon_code" class="col-sm-2 control-label text-center">Pincode: <span style="color: rgb(255, 0, 0); padding-left: 2px;">*</span></label>
+                                    <div class="col-sm-7">
+                                        {{ parlourform.pincode }}
+                                    </div>
+                                </div>
+                                
+                                <div class="clearfix"></div> 
+                             <div class="form-group" style="margin-top: 10px;">
+                                    <label for="image" class="col-sm-2 control-label text-center">Picture(130 X 80 px): <span style="color: rgb(255, 0, 0); padding-left: 2px;"></span></label>
+                                    <div class="col-sm-7">
+                                        <input type="file"  name="picture" id="picture" onchange ="readURL(this);">
+                                        {% if parlour_obj.picture %}
+                                            <img id="prof_pic" src="{{ parlour_obj.picture.url }}"  alt="User Image" style="margin-top: 10px;width:150px;height:90px;" />
+                                        {% else %}
+                                        <img id="prof_pic" src="{% static 'image/no-image.jpg' %}"  alt="User Image" style="margin-top: 10px;width:150px;height:90px;" />
+                                        {% endif %}
+                                    </div>
+                            </div>
+
+                            <input type="hidden" name="update_id" id="update_id" value="{{ parlourform.id }}" >
+                            <input type="hidden" name="old_image" id="old_image" value="{{ parlourform.picture.url }}" >
+                        
+
+
+
+                                
+                               
+                               
+                               
+                                <div class="form-group">
+            
+                                <div class="clearfix"></div>
+                                <div class="box-footer" style="margin-top: 10px">
+                                    
+                                    <a href="{% url 'list_parlour' %}" class="btn btn-danger">Cancel</a>
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                        </form>
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+</div>
+
+<script>
+    function readURL(input)
+    {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#prof_pic')
+                    .attr('src', e.target.result)
+                    .width(90)
+                    .height(90);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+<script>
+    function validate()
+    {
+        if($('#brand_name').val()=="")
+        {
+            $("#brand_name").addClass("red_border");
+        }
+        else
+        {
+            $("#brand_name").removeClass("red_border");
+        }
+
+
+        // if($('#brand_image').val()=="")
+        // {
+        //     $("#brand_image").addClass("red_border");
+        // }
+        // else
+        // {
+        //     $("#brand_image").removeClass("red_border");
+        // } 
+    }
+    
+        function form_validation()
+        {
+            $('#brand_add_form').attr('onchange', 'validate()');
+            $('#brand_add_form').attr('onkeyup', 'validate()');
+            $('#brand_add_form').attr('onfocus', 'validate()');
+
+            validate();
+
+              if ($('#brand_add_form .red_border').size() > 0)
+              {
+                $('#brand_add_form .red_border:first').focus();
+                return false;
+              }
+              else 
+              {
+                  $('#brand_add_form').submit();
+              }
+        }
+
+
+
+function get_state_based_on_country(country_id)
+{
+    if(country_id=="")
+     {
+        alert('Please Select Country');
+     }
+    if(country_id != '')
+    {
+        $.ajax({
+                  url:"{% url 'get_state_list' %}",
+                  data:{country_id:country_id,'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                  dataType:'json',
+                  type:'post',
+                  success: function(data)
+                  {
+                    var keys = Object.keys(data); 
+                  var values = Object.values(data); 
+                  var total_row = keys.length;
+
+                  var html_string='<option value="0"> Select State</option>';
+
+                  for (var i = 0; i < keys.length; i++) {
+                    html_string+='<option value="'+keys[i]+'">'+values[i]+'</option>'; 
+                  }
+
+                  $('#state').html(html_string);
+
+                  // when country is changed city should be empty
+                  var html_string='<option value="0"> Select City</option>';
+                  $('#city').html(html_string);
+           
+                }
+                    
+                });
+    }
+}
+
+function get_city_based_on_state(state_id)
+{
+    if(state_id=="")
+     {
+        alert('Please Select State');
+     }
+    if(state_id != '')
+    {
+        $.ajax({
+                  url:"{% url 'get_city_list' %}",
+                  data:{state_id:state_id,'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                  dataType:'json',
+                  type:'post',
+                  success: function(data)
+                  {
+                    var keys = Object.keys(data); 
+                  var values = Object.values(data); 
+                  var total_row = keys.length;
+
+                  var html_string='<option value="0"> Select City</option>';
+
+                  for (var i = 0; i < keys.length; i++) {
+                    html_string+='<option value="'+keys[i]+'">'+values[i]+'</option>'; 
+                  }
+
+                  $('#city').html(html_string);
+           
+                }
+                    
+                });
+    }
+}
+
+</script>
+
+
+{% include 'common/admin_footer.html' %}

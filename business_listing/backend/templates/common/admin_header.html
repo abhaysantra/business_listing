@@ -36,7 +36,7 @@
     <!-- Logo -->
     <a href="" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>DEB</b></span>
+      <span class="logo-mini"><b>Business Listing</b></span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b><img style="width: 150px;" src="{% static 'image/logodemo.png'%}"></b></span>
     </a>
@@ -61,15 +61,24 @@
               <!-- User image -->
               <li class="user-header">
                 <p>
-                 {{ request.session.admin_session_name }}
+                 {{ request.user.username }}
                   <small></small>
+                </p>
+                <p>
+                  {% if request.user.myuserprofile.picture %}
+                  <img src="{{ request.user.myuserprofile.picture.url }}" alt="{{ request.user.username }}" style="width: 150px; height: 100px">
+                  }
+                  {% else %}
+                  <img src="{% static 'image/no-image.png' %}" alt="NO Image" style="width: 50px; height: 50px">
+                  {% endif %}
                 </p>
               </li>
               <!-- Menu Body -->
               <li class="user-body">
                 <div class="row">
                   <div class="col-xs-6 text-center">
-                    <a href="{% url 'admin_password_view' %}">Change Password</a>
+                    <a href="{% url 'change_password' %}">Change Password</a>
+                    <!-- <a href="{% url 'admin_password_view' %}">Change Password</a> -->
                   </div>
                   <div class="col-xs-6 text-center">
                     <a href="{% url 'admin_email_view' %}">Email Setting</a>
@@ -83,7 +92,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="{% url 'updateprofile' request.session.admin_session_id %}" class="btn btn-default btn-flat">Profile</a>
+                  <a href="{% url 'updateprofile' request.user.id %}" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="{% url 'logout' %}" class="btn btn-default btn-flat">Sign out</a>

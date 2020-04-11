@@ -4,6 +4,9 @@ from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
+from datetime import datetime
+from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
 
 
@@ -17,6 +20,8 @@ from backend.models import *
 from backend.decorators import *
 from backend.forms import *
 
+# source link : https://github.com/maxg203/Django-Tutorials/blob/master/accounts/templates/accounts/change_password.html
+# for change_password : https://www.youtube.com/watch?v=QxGKTvx-Vvg
 
 def registerPage(request):
     form = CreateUserForm()
@@ -30,29 +35,55 @@ def registerPage(request):
             user.groups.add(group)
             user.user_type_id = 2
             user.save()
+            #user profile to be created with empty data
+            obj = MyUserProfile(user=user)
+            obj.save()
             messages.success(request, 'Account was created with : ' + username)
             return redirect('login')
         
     context = {'form':form}
-    return render(request, 'register.html', context)
+    return render(request, 'account/register.html', context)
 
 # @unauthenticated_user
 # @login_required(login_url='login')
 # @admin_only
 @login_required()
 def updateProfile(request, pk):
-
     user = MyUser.objects.get(id=pk)
-    form = UpdateUserForm(instance=user)
-
+    myProfile = MyUserProfile.objects.get(user=user)
     if request.method == 'POST':
-        form = UpdateUserForm(request.POST,request.FILES, instance=user)
-        if form.is_valid():
-            form.save()
+        userform = UpdateUserForm(request.POST,request.FILES, instance=user)
+        userProfileForm = UpdateUserProfileForm(request.POST,request.FILES,instance=myProfile)
+        if userform.is_valid() and userProfileForm.is_valid():
+            userform.save()
+            userProfile = userProfileForm.save(commit=False)
+            userProfile.modified_date = datetime.now()
+            userProfile.save()
             return redirect('admin_index')
 
-    context = {'form':form}
+    userform = UpdateUserForm(instance=user)
+    profileform = UpdateUserProfileForm(instance=myProfile)
+    context = {'form':userform,'profileform':profileform}
     return render(request, 'edit_profile_using_form.html', context)
+
+@login_required()
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect(index)
+        else:
+            form = PasswordChangeForm(user=request.user)
+            args = {'form': form}
+            return render(request, 'account/change_password.html', args)
+    else:
+        form = PasswordChangeForm(user=request.user)
+
+        args = {'form': form}
+        return render(request, 'account/change_password.html', args)
 
 
 #-------- upload book with FIle and Image field -------------#
@@ -112,7 +143,7 @@ def delete_book(request, id):
 
 
 def loginUser(request):
-    return render(request, 'login.html')
+    return render(request, 'account/login.html')
 
 def login_action(request):
     login_email = request.POST["login_email"] # instead of email make it username as username is unique in DB
@@ -123,7 +154,6 @@ def login_action(request):
     #test authenticate
     user = authenticate(request, username=login_email,password=login_password)
     print('authenticate :',user)
-    print(user.is_staff, user.is_superuser)
     if user is not None:
         if user.is_active:
             login(request, user)
@@ -138,23 +168,21 @@ def login_action(request):
         return redirect(loginUser)  
 
 def logoutUser(request):
-    del request.session['admin_session_id']
-    del request.session['admin_session_name']
+    if 'admin_session_id' in request.session:
+        del request.session['admin_session_id']
+        del request.session['admin_session_name']
     messages.info(request,'Successfully Logged out!')
     logout(request)
     
     return redirect(loginUser)
 
+@login_required()
 def index(request):
-    if 'admin_session_id' not in request.session:
-        return redirect(loginUser)
-    else:
-        # all_users = User.objects.filter(user_type_id=2)
-        all_users = User.objects.filter(user_type_id = 2).order_by('-id')
-        context = {
-            'all_users':all_users,
-        }
-        return render(request, 'dashboard_view.html', context)
+
+    context = {
+        'vendorCounter':MyUser.objects.filter(user_type_id=2).count(),
+    }
+    return render(request, 'dashboard_view.html', context)
 
 # @unauthenticated_user
 # @allowed_users(['admin'])
@@ -183,35 +211,33 @@ def admin_profile_edit(request):
 
     return redirect(admin_profile)
 
-def admin_password_view(request):
-    if 'admin_session_id' not in request.session:
-        return redirect(loginUser)
 
-    admin_session_id = request.session['admin_session_id']
-    profile_data = User.objects.get(id=admin_session_id)
+
+################### to be removed #####################
+@login_required
+def admin_password_view(request):
+    profile_data = MyUser.objects.get(id=request.user.id)
     return render(request, 'admin_password_change.html', {'profile_data':profile_data})
 
+@login_required
 def admin_password_update(request):
-    if 'admin_session_id' not in request.session:
-        return redirect(loginUser)
 
     con_pass = request.POST["con_pass"]
     hidden_user_id = request.POST["hidden_user_id"]
     
-    adminObj = User.objects.get(id=hidden_user_id)
-    adminObj.login_password = con_pass
+    adminObj = MyUser.objects.get(id=hidden_user_id)
+    adminObj.password = con_pass
     adminObj.save(update_fields=['login_password'])
 
     messages.info(request,'Password Successfully Updated!')
 
     return redirect(admin_password_view)
 
-def admin_email_view(request):
-    if 'admin_session_id' not in request.session:
-        return redirect(loginUser)
+##################################################
 
-    admin_session_id = request.session['admin_session_id']
-    email_data = adminEmail.objects.get_or_create(id=1)
+@login_required
+def admin_email_view(request):
+    email_data = adminEmail.objects.get_or_create(id=request.user.id)
    
     return render(request, 'admin_email_view.html', {'email_data':email_data})
 
@@ -231,6 +257,8 @@ def admin_email_update(request):
 
     return redirect(admin_email_view)
 
+##################################  TO BE REMOVED #########################
+
 
 #################################################### using mixin  #####################
 class GrowerListView(generics.GenericAPIView, mixins.ListModelMixin,
@@ -238,8 +266,8 @@ class GrowerListView(generics.GenericAPIView, mixins.ListModelMixin,
 											  mixins.RetrieveModelMixin,
 											  mixins.UpdateModelMixin,
 											  mixins.DestroyModelMixin):
-	serializer_class = UserSerializer
-	queryset = User.objects.all()
+	serializer_class = MyUserSerializer
+	queryset = MyUser.objects.all()
 	lookup_field = 'id'
 
 	def get(self, request,id=None):

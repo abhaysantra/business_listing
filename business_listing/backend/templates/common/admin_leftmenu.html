@@ -19,8 +19,11 @@
          
         </li>
 
-      
-        <li class="treeview {% if slider_active == 'active' or about_active == 'active' or gallery_active == 'active' or contact_active == 'active' or valuable_customer_active == 'active' or video_active == 'active' or faq_active == 'active' or banner_active == 'active' or policy_active == 'active' or pincode_service_active == 'active' %}active{% endif %}">
+    <!-- for super admin user -->
+   {% if request.user.user_type_id == 1 %}"
+        <li class="treeview {% if slider_active == 'active' or subscriptionlist_active == 'active' %}active{% endif %}">
+        
+
           <a href="#">
             <i class="fa fa-cogs"></i>
             <span>Setting Management</span>
@@ -32,31 +35,112 @@
 
             <li class="{% if slider_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage Slider</a></li>
 
-            <li class="{% if banner_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage Banner</a></li>
+            <li class="{% if subscriptionlist_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage Subscription</a></li>
 
-
-             <li class="{% if gallery_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage Gallery</a></li> 
-          
-             <li class="{% if valuable_customer_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage Valuable Customers</a></li>
-
-             <li class="{% if video_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage Videos</a></li>
-
-             <li class="{% if pincode_service_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage Pincode</a></li>
-
-             <li class="{% if about_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage About Us</a></li> 
-
-             <li class="{% if contact_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage Contact Us</a></li>
-
-             <li class="{% if faq_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage FAQ</a></li>
-
-             <li class="{% if policy_active == 'active' %}active{% endif %}"><a href="{% url 'login' %}"><i class="fa fa-circle-o"></i>Manage Policy</a></li>
 
           </ul>
+          
+        </li>
+
+        <li class="treeview {% if agentlist_active == 'active' %}active{% endif %}">
+
+          <a href="#">
+            <i class="fa fa-cogs"></i>
+            <span>Agent Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+
+            <li class="{% if agentlist_active == 'active' %}active{% endif %}"><a href="{% url 'agentList' %}"><i class="fa fa-circle-o"></i>Agent List</a></li>
+
+
+          </ul>
+
       </li>
 
+      <li class="treeview {% if vendorlist == 'active' %}active{% endif %}">
 
+          <a href="#">
+            <i class="fa fa-cogs"></i>
+            <span>Vendor Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="{% if vendorlist == 'active' %}active{% endif %}"><a href="{% url 'individual_vendor_list' %}"><i class="fa fa-circle-o"></i>Individual Vendor List</a></li>
+            
+          </ul>
 
-      <!--  -->
+      </li>
+      {% endif %}
+<!-- ----------------for agent --------------->
+{% if request.user.user_type_id == 2 %}"
+  <li class="treeview {% if vendorListUnderAgent == 'active' or addvendor_active == 'active' %}active{% endif %}">
+
+          <a href="#">
+            <i class="fa fa-cogs"></i>
+            <span>Vendor Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="{% if vendorListUnderAgent == 'active' %}active{% endif %}"><a href="{% url 'getvendorlist' request.user.id %}"><i class="fa fa-circle-o"></i>Vendor List</a></li>
+            
+          </ul>
+
+          <ul class="treeview-menu">
+          <li class="{% if addvendor_active == 'active' %}active{% endif %}"><a href="{% url 'addvendor' %}"><i class="fa fa-circle-o"></i>Add Vendor</a></li>
+        </ul>
+
+  </li>
+
+  <li class="treeview {% if parlour_service == 'active' or hotel_service == 'active' %}active{% endif %}">
+
+          <a href="#">
+            <i class="fa fa-cogs"></i>
+            <span>Service Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="{% if parlour_service == 'active' %}active{% endif %}"><a href="{% url 'list_parlour' %}"><i class="fa fa-circle-o"></i>Parlour Service</a></li>
+            
+          </ul>
+
+          <ul class="treeview-menu">
+          <li class="{% if hotel_service == 'active' %}active{% endif %}"><a href="{% url 'addvendor' %}"><i class="fa fa-circle-o"></i>Hotel Service</a></li>
+        </ul>
+
+  </li>
+{% endif %}
+
+<!-- for individual vendor -->
+{% if request.user.user_type_id == 3 %}"
+  <li class="treeview {% if vendorListUnderAgent == 'active' or addvendor_active == 'active' %}active{% endif %}">
+
+          <a href="#">
+            <i class="fa fa-cogs"></i>
+            <span>Service Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="{% if vendorListUnderAgent == 'active' %}active{% endif %}"><a href="{% url 'getvendorlist' request.user.id %}"><i class="fa fa-circle-o"></i>Service List</a></li>
+            
+          </ul>
+
+          <ul class="treeview-menu">
+          <li class="{% if addvendor_active == 'active' %}active{% endif %}"><a href="{% url 'addvendor' %}"><i class="fa fa-circle-o"></i>Add Service</a></li>
+        </ul>
+
+  </li>
+{% endif %}
 
 
 

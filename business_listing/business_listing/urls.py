@@ -21,7 +21,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('backadmin/', include('backend.urls')),
-    path('', include('frontend.urls')),
+    # path('', include('frontend.urls')),
+    path('accounts/', include('allauth.urls')),
+    # set path to redirect after google login
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

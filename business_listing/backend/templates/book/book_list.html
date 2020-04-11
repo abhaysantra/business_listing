@@ -1,5 +1,10 @@
+
 {%  extends 'book/main.html' %}
 {% load static %}
+
+
+{% include 'common/admin_header.html' %}
+{% include 'common/admin_leftmenu.html' %}
 
 {% block content %}
 	<h2> <a href="{% url 'upload_book' %}"> Upload Book</a> </h2>

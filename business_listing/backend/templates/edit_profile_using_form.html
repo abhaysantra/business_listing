@@ -40,6 +40,7 @@
             <!-- form start -->
             <form id="profileedit_form_validation" class="form-horizontal" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
               {{form|crispy}}
+              {{profileform|crispy}}
               <!-- /.box-body -->
               <div class="box-footer">
                 <a href="{% url 'admin_index' %}" class="btn btn-danger">Cancel</a>

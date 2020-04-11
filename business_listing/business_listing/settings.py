@@ -35,6 +35,7 @@ LOGIN_URL = '/backadmin/login/'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -44,8 +45,15 @@ INSTALLED_APPS = [
     'backend.apps.BackendConfig',
     'frontend.apps.FrontendConfig',
     'crispy_forms',
+
+    #for allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
+SITE_ID = 1
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
@@ -139,10 +147,15 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
 
-EMAIL_USE_TLS = True
+#SMTP Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'pythondeveloper.exprolab@gmail.com'
-# EMAIL_HOST_PASSWORD = 'exprolab@123'
-# app specific password:
-EMAIL_HOST_PASSWORD = 'gfcubtlzphgxjzpw'
 EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'pythondeveloper.exprolab@gmail.com'
+# EMAIL_HOST_PASSWORD = 'balorpxe@0294'
+# app specific password:
+EMAIL_HOST_PASSWORD = 'ufcnaypiequrlila'
+
+LOGIN_REDIRECT_URL = '/'
+

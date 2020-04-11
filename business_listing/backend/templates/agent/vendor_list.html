@@ -1,0 +1,125 @@
+{% load static %}
+{% include 'common/admin_header.html' %}
+{% include 'common/admin_leftmenu.html' %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>Vendor List</h1>
+        <ol class="breadcrumb">
+            <li><a href="{% url 'admin_index' %}"><i class="fa fa-dashboard" aria-hidden="true"></i>Dashboad</a></li>
+            <li class="active">Vendor List</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+                <div class="box">
+                    <div class="box-header">
+                       <!--  <h3 class="box-title">Slider List</h3> -->
+                    </div>
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        <a class="close" href="#" data-dismiss="alert">×</a>
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    <div class="col-md-12" style="">
+                    
+                    
+                       
+                    <button  class="btn btn-sm btn-success" onclick="change_status('active')"><i class="fa fa-check" aria-hidden="true"></i> Active</button>
+                    <button  class="btn btn-sm btn-danger" onclick="change_status('inactive')"><i class="fa fa-times" aria-hidden="true"></i> Inactive</button>
+
+                   
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- /.box-header -->
+                    <div class="box-body about_booking">
+                        <table id="example1" class="table table-bordered table-hover table-condensed table-responsive">
+                            <thead>
+                            <tr class="bg-blue">
+                            <th><input type="checkbox" id="checkAll" name="checkAll"></th>
+                            <th>Status</th>
+                            <th>Vendor Name</th>
+                            <th>Vendor Email</th>
+                            <th>Vendor Contact No.</th>
+                            
+                            <th>Joining Date</th>
+                            <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                              {% for vendor in vendorList %}
+                                <tr>
+                                 <td><input type="checkbox" id="check" name="check" value="{{ agent.id }}"></td>
+                                    <td>
+                                        {% if vendor.is_active == 1 %} 
+                                            <img src="{% static 'image/active.png' %}" class="img-responsive" >
+                                        {% else %}
+                                             <img src="{% static 'image/inactive.png' %}" class="img-responsive">
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ vendor.first_name }} {{ vendor.last_name }}</td>
+                                    <td>{{ vendor.email }}</td>
+                                    <td>{{ vendor.phone_number }}</td>
+                                    <td>{{ vendor.created_date }}</td>
+
+                                    <td class="last_th">
+                                        <a href="{% url 'getvendorlist' vendor.id %}" class="btn-primary btn-sm" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                        <a href="{% url 'updateprofile' vendor.id %}" class="btn-danger btn-sm" name="" id="" onclick="return confirm('Are you sure ?')" title="delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    </td>
+                                    
+                                    
+
+                                    
+
+                                    
+                                </tr>
+                              {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+
+</div>
+
+
+<script>
+    $("#checkAll").change(function () {
+        $("input:checkbox").prop('checked', $(this).prop("checked"));
+    });
+
+    function change_status(status)
+    {
+        var favorite = [];
+        $.each($("input[name='check']:checked"), function(){
+            favorite.push($(this).val());
+        });
+
+        var value=favorite;
+        if(value=="")
+        {
+            alert('Please select atleast one record');
+        }
+        
+
+    }
+
+</script>
+
+{% include 'common/admin_footer.html' %}
