@@ -52,17 +52,17 @@ urlpatterns = [
     path('individual_vendor_list/', individual_vendor_list, name='individual_vendor_list'),
 
     ########### Parlour section ############
-    path('list_parlour/', list_parlour, name='list_parlour'),
-    path('add_parlour/', add_parlour, name='add_parlour'),
-    path('edit_parlour/<int:id>/', edit_parlour, name='edit_parlour'),
-    path('delete_parlour/<int:id>/', delete_parlour, name='delete_parlour'),
+    path('list-parlour/', list_parlour, name='list-parlour'),
+    path('add-parlour/', add_parlour, name='add-parlour'),
+    path('edit-parlour/<str:uuid_code>/', edit_parlour, name='edit-parlour'),
+    path('delete-parlour/<str:uuid_code>/', delete_parlour, name='delete-parlour'),
     path('change_status/', change_status, name='change_status'),
 
     ########### Parlour service section ############
-    path('list_parlour_service/<int:parlour_id>/', list_parlour_service, name='list_parlour_service'),
-    path('add_parlour_service/', add_parlour_service, name='add_parlour_service'),
-    path('edit_parlour_service/<int:id>/', edit_parlour_service, name='edit_parlour_service'),
-    path('delete_parlour_service/<int:id>/', delete_parlour_service, name='delete_parlour_service'),
+    path('list-parlour-service/<str:uuid_code>/', list_parlour_service, name='list-parlour-service'),
+    path('add-parlour-service/', add_parlour_service, name='add-parlour-service'),
+    path('edit-parlour-service/<str:uuid_code>/', edit_parlour_service, name='edit-parlour-service'),
+    path('delete-parlour-service/<str:uuid_code>/', delete_parlour_service, name='delete-parlour-service'),
     path('change_status_parlour_service/', change_status_parlour_service, name='change_status_parlour_service'),
     
 

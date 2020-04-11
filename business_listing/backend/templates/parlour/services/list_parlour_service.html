@@ -31,7 +31,7 @@
                     {% endfor %}
                     <div class="col-md-12" style="">
                     
-                    <a href="{% url 'add_parlour_service' %}" class="btn btn-info btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> Add New Service in Parlour</a>
+                    <a href="{% url 'add-parlour-service' %}" class="btn btn-info btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> Add New Service in Parlour</a>
                        
                     <button  class="btn btn-sm btn-success" onclick="change_status('active')"><i class="fa fa-check" aria-hidden="true"></i> Active</button>
                     <button  class="btn btn-sm btn-danger" onclick="change_status('inactive')"><i class="fa fa-times" aria-hidden="true"></i> Inactive</button>
@@ -84,8 +84,8 @@
                                     </td> -->
 
                                     <td class="last_th">
-                                        <a href="{% url 'edit_parlour_service' parlour_service.id %}" class="btn-primary btn-sm" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                        <a href="{% url 'delete_parlour_service' parlour_service.id %}" class="btn-danger btn-sm" name="" id="" onclick="return confirm('Are you sure ?')" title="delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        <a href="{% url 'edit-parlour-service' parlour_service.uuid_code %}" class="btn-primary btn-sm" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                        <a href="{% url 'delete-parlour-service' parlour_service.uuid_code %}" class="btn-danger btn-sm" name="" id="" onclick="return confirm('Are you sure ?')" title="delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
 
                                     
                                 </tr>

@@ -12,6 +12,7 @@ from backend.decorators import *
 
 #set global; variables to access at some other files
 selected_parlour_id = None
+selected_parlour_uuid_code = None
 
 def get_state_list(request):
     country_id = request.POST['country_id']

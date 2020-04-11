@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+import uuid
 
 class MyUser(AbstractUser):
     # user_type_id => 1-> Admin 2-> Agent 3-> Vendor 4-> Customer
@@ -67,6 +68,8 @@ class Parlour(models.Model):
     modified_date = models.DateField(null=True)
     modified_by = models.IntegerField(null=True)
 
+    uuid_code = models.CharField(max_length=100, blank=True, unique=True, default=uuid.uuid4)
+
     # objects = ParlourManager()
     parman = ParlourQuerySet()
 
@@ -84,6 +87,17 @@ class ParlourService(models.Model):
     status = models.CharField(max_length=10, default='active')
     created_date = models.DateField(auto_now_add = True, null=True)
     modified_date = models.DateField(null=True)
+
+    uuid_code = models.CharField(max_length=100, blank=True, unique=True, default=uuid.uuid4)
+
+
+    # def __init__(self):
+    #      super(Paid, self).__init__()
+    #      self.uuid_code = str(uuid.uuid4())
+
+    # this needs to be corrected
+    def get_absolute_url(self):
+        return "/path/%s/" %(self.uuid_code)
 
     def __str__(self):
         return self.service_name

@@ -31,7 +31,7 @@
                     {% endfor %}
                     <div class="col-md-12" style="">
                     
-                    <a href="{% url 'add_parlour' %}" class="btn btn-info btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> Add New Parlour</a>
+                    <a href="{% url 'add-parlour' %}" class="btn btn-info btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> Add New Parlour</a>
                        
                     <button  class="btn btn-sm btn-success" onclick="change_status('active')"><i class="fa fa-check" aria-hidden="true"></i> Active</button>
                     <button  class="btn btn-sm btn-danger" onclick="change_status('inactive')"><i class="fa fa-times" aria-hidden="true"></i> Inactive</button>
@@ -73,7 +73,7 @@
                                     <td>{{ parlour.address }}</td>
 
                                     <td class="last_th">
-                                        <a href="{% url 'list_parlour_service' parlour.id %}" class="btn-primary btn-sm" title="Edit"><i class="fa fa-list" aria-hidden="true"></i></a>
+                                        <a href="{% url 'list-parlour-service' parlour.uuid_code %}" class="btn-primary btn-sm" title="Edit"><i class="fa fa-list" aria-hidden="true"></i></a>
                                         
                                     </td>
                                     
@@ -94,8 +94,8 @@
                                     </td>
 
                                     <td class="last_th">
-                                        <a href="{% url 'edit_parlour' parlour.id %}" class="btn-primary btn-sm" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                        <a href="{% url 'delete_parlour' parlour.id %}" class="btn-danger btn-sm" name="" id="" onclick="return confirm('Are you sure ?')" title="delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        <a href="{% url 'edit-parlour' parlour.uuid_code %}" class="btn-primary btn-sm" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                        <a href="{% url 'delete-parlour' parlour.uuid_code %}" class="btn-danger btn-sm" name="" id="" onclick="return confirm('Are you sure ?')" title="delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
 
                                     
                                 </tr>
