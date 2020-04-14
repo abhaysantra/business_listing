@@ -71,8 +71,8 @@
                                     <td>{{ vendor.created_date }}</td>
 
                                     <td class="last_th">
-                                        <a href="{% url 'getvendorlist' vendor.id %}" class="btn-primary btn-sm" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                        <a href="{% url 'updateprofile' vendor.id %}" class="btn-danger btn-sm" name="" id="" onclick="return confirm('Are you sure ?')" title="delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        <a href="{% url 'delete-vendor' vendor.uuid_code %}" class="btn-primary btn-sm" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                        <a href="{% url 'delete-vendor' vendor.uuid_code %}" class="btn-danger btn-sm" name="" id="" onclick="return confirm('Are you sure ?')" title="delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                     </td>
                                     
                                     

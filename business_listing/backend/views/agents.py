@@ -25,9 +25,10 @@ def agentList(request):
     return render(request,'agent/agent_list.html',{'agents':agents,'agentlist_active':'active'})
 
 @login_required()
-def getVendorList(request, id):
-    print('Agent with id : ',id)
-    vendorlistUderThisAgent = VendorList.objects.filter(agent_id=id).values_list('vendor_id',flat=True) 
+def getVendorList(request, uuid_code):
+    print('Agent with uuid_code : ',uuid_code)
+    user_id = MyUser.objects.get(uuid_code=uuid_code)
+    vendorlistUderThisAgent = VendorList.objects.filter(agent_id=user_id).values_list('vendor_id',flat=True) 
     print('vendorlistUderThisAgent: ',vendorlistUderThisAgent)
 
     vendorList= MyUser.objects.filter(id__in = vendorlistUderThisAgent)
@@ -82,6 +83,12 @@ def individual_vendor_list(request):
 	vendorList= MyUser.objects.filter(is_individual_vendor = 1, user_type_id=3)
 	return render(request,'agent/vendor_list.html',{'vendorList':vendorList,'vendorlist':'active'})
 
-
+@login_required()
+def deleteVendor(request, uuid_code):
+    vendor_obj= MyUser.objects.get(uuid_code = uuid_code)
+    # remove stored image from system
+    # remove_old_image_from_system(vendor_obj.picture)
+    vendor_obj.delete()
+    return redirect('getvendorlist', uuid_code=request.user.uuid_code)
 
 

@@ -18,26 +18,27 @@ class CreateUserForm(UserCreationForm):
 		model = MyUser
 		fields = ['username', 'email', 'phone_number','password1', 'password2']
 
-	def clean_email(self):
-		user = self.cleaned_data['username']
-		try:
-			match = MyUser.objects.get(email=email)		
-		except:
-			raise forms.ValidationError(' email already exists!!!')
-		return user
+	# def clean_email(self):
+	# 	print(self.cleaned_data)
+	# 	email = self.cleaned_data['email']
+	# 	try:
+	# 		match = MyUser.objects.get(email=email)		
+	# 	except:
+	# 		raise forms.ValidationError(' email already exists!!!')
+	# 	return email
 
 class UpdateUserForm(ModelForm):
 	class Meta:
 		model = MyUser
 		fields = ['username','first_name','last_name', 'email', 'phone_number']
 
-	def clean_username(self):
-		user = self.cleaned_data['username']
-		try:
-			match = MyUser.objects.get(username=user)		
-		except:
-			raise forms.ValidationError(' Username already exists')
-		return user
+	# def clean_username(self):
+	# 	user = self.cleaned_data['username']
+	# 	try:
+	# 		match = MyUser.objects.get(username=user)		
+	# 	except:
+	# 		raise forms.ValidationError(' Username already exists')
+	# 	return user
 
 class UpdateUserProfileForm(ModelForm):
 	class Meta:

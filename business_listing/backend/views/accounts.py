@@ -7,6 +7,7 @@ from django.contrib.auth.models import Group
 from datetime import datetime
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+from django.core.exceptions import ObjectDoesNotExist
 
 
 
@@ -26,14 +27,15 @@ from backend.forms import *
 def registerPage(request):
     form = CreateUserForm()
     if request.method == 'POST':
+        print('request.POST :',request.POST)
         form = CreateUserForm(request.POST)
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
-            #to set user_type id 1=> superuser 2=> vendor 3=> customer
+            #to set user_type id 1=> superuser 2=> agent 3=> individual vendor 4=> customer
             group = Group.objects.get(name='vendor')
             user.groups.add(group)
-            user.user_type_id = 2
+            user.user_type_id = 3
             user.save()
             #user profile to be created with empty data
             obj = MyUserProfile(user=user)
@@ -48,9 +50,15 @@ def registerPage(request):
 # @login_required(login_url='login')
 # @admin_only
 @login_required()
-def updateProfile(request, pk):
-    user = MyUser.objects.get(id=pk)
-    myProfile = MyUserProfile.objects.get(user=user)
+def updateProfile(request, uuid_code):
+    user = MyUser.objects.get(uuid_code=uuid_code)
+    # this is the case when root => super user created through terminal and no MyUserProfile created
+    try:
+        myProfile = MyUserProfile.objects.get(user=user)
+    except ObjectDoesNotExist:
+        myProfile = MyUserProfile(user=user)
+        myProfile.save()       
+
     if request.method == 'POST':
         userform = UpdateUserForm(request.POST,request.FILES, instance=user)
         userProfileForm = UpdateUserProfileForm(request.POST,request.FILES,instance=myProfile)

@@ -44,6 +44,10 @@ INSTALLED_APPS = [
     # 'backend',
     'backend.apps.BackendConfig',
     'frontend.apps.FrontendConfig',
+
+    #for restframework api
+    'api.apps.ApiConfig',
+    
     'crispy_forms',
 
     #for allauth
@@ -106,12 +110,12 @@ DATABASES = {
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    # },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    # },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },

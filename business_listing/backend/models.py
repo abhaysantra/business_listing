@@ -9,6 +9,9 @@ class MyUser(AbstractUser):
     phone_number = models.CharField(max_length=255, null=True)
     created_date = models.DateField(auto_now_add = True, null=True)
     modified_date = models.DateField( null=True)
+
+    uuid_code = models.CharField(max_length=100, blank=True, unique=True, default=uuid.uuid4)
+    
     
 class MyUserProfile(models.Model):
     user = models.OneToOneField(MyUser, on_delete=models.CASCADE, null=True)

@@ -88,7 +88,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="{% if vendorListUnderAgent == 'active' %}active{% endif %}"><a href="{% url 'getvendorlist' request.user.id %}"><i class="fa fa-circle-o"></i>Vendor List</a></li>
+            <li class="{% if vendorListUnderAgent == 'active' %}active{% endif %}"><a href="{% url 'getvendorlist' request.user.uuid_code %}"><i class="fa fa-circle-o"></i>Vendor List</a></li>
             
           </ul>
 

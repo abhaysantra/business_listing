@@ -19,7 +19,7 @@ urlpatterns = [
 
     #-------------- based on form --------------------#
     path('registerpage/', registerPage, name='registerpage'),
-    path('updateprofile/<int:pk>/', updateProfile, name='updateprofile'),
+    path('updateprofile/<str:uuid_code>/', updateProfile, name='updateprofile'),
     path('change_password/', change_password, name='change_password'),
 
     ############# forgot password and reset password ----###########################
@@ -44,7 +44,8 @@ urlpatterns = [
 
     # Agent section 
     path('agentlist/', agentList, name='agentList'),
-    path('getvendorlist/<int:id>', getVendorList, name='getvendorlist'),
+    path('getvendorlist/<str:uuid_code>', getVendorList, name='getvendorlist'),
+    path('delete-vendor/<str:uuid_code>', deleteVendor, name='delete-vendor'),
 
     # now Agent can add vendor to his vendor list
     path('addvendor/', addVendor, name='addvendor'),
