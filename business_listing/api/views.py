@@ -76,7 +76,7 @@ def taskDelete(request, pk):
 
 	return Response('Item succsesfully delete!')
 
-########################  end of function based view---------------#
+########################  end of function based view--------------- #
 
 #----------------------class based view----#
 class taskList(APIView):

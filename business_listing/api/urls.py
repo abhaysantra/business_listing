@@ -15,6 +15,7 @@ urlpatterns = [
 	########## Based on class
 	path('task-list/', views.taskList.as_view(), name="task-list"),
 	path('task-detail/<int:id>/', views.taskDetail.as_view(), name="task-detail"),
+	
 	# path('task-create/', views.taskCreate, name="task-create"),
 
 	# path('task-update/<str:pk>/', views.taskUpdate, name="task-update"),
